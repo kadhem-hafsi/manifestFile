@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: kadhemhafsi/tpachatproject:56
+        ports:
+        - containerPort: 80
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    app: frontend
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80         # Port interne du service exposé par Kubernetes
+      targetPort: 80    # Port sur lequel l'application écoute dans le conteneur
+      nodePort: 30080   # Port externe accessible via l'IP de la VM
