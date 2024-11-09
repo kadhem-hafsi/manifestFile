@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: kadhemhafsi/tpachatproject:57
+        image: kadhemhafsi/tpachatproject:64
         ports:
         - containerPort: 80
       restartPolicy: Always
